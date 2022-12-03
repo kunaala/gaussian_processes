@@ -1,4 +1,4 @@
-#include "Gaussian.hpp"
+#include "Sparse_gp.hpp"
 int main(){
     std::ofstream fd("test.csv");
     Gaussian spgp;

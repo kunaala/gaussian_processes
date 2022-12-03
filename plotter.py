@@ -13,15 +13,16 @@ x_t = np.fromstring(lines[3], dtype=float, sep = ",")
 mu_t = np.fromstring(lines[4], dtype=float, sep = ",")
 s = np.fromstring(lines[5], dtype=float, sep = ",")
 
-plt.figure(figsize=(16,8))
+# plt.figure(figsize=(16,8))
 
 
-plt.plot(x, y,'k+', ms=8)
-plt.plot(x_t, mu_t,'b-' , ms = 18)
-plt.plot(xp,yp,'r+', ms=14)
+plt.plot(x, y,'b.', lw=2,label="training input")
+plt.plot(x_t, mu_t,'r+' , ms = 12,label="regression output")
+plt.plot(xp,yp,'gD', ms=10,label="pseudo-inputs")
 plt.gca().fill_between(x_t, mu_t-2*s, mu_t+2*s, color="#dddddd")
-
-plt.savefig("predictive.png", bbox_inches='tight', dpi=300)
-plt.title('Mean predictions plus 2 st.deviations')
+plt.axis([-5, 5, 0, 10])
+plt.legend(loc="upper center")
+# plt.savefig("predictive.png", bbox_inches='tight', dpi=300)
+# plt.title('Mean predictions plus 2 st.deviations')
 plt.show()
 

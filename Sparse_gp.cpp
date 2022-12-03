@@ -1,4 +1,4 @@
-#include "Gaussian.hpp"
+#include "Sparse_gp.hpp"
 
 Gaussian::Gaussian(){
     Gaussian::gen_data();
@@ -33,7 +33,7 @@ void Gaussian::save_data(Vector<double, Dynamic> v, std::string filename ){
 }
 
 Vector<double, Dynamic> Gaussian::unigen(unsigned int size, float low, float high){
-    /*
+    /*  
      *Generating uniformly distributed real "size" numbers over a specified interval (low,high).
      */
     Vector<double, Dynamic> v(size);
@@ -72,7 +72,10 @@ Vector<double, Dynamic> Gaussian::func_gen(Vector<double, Dynamic> x, float nois
     for(int i=0; i<x.rows();i++){
 		noise(i) = rand(gen);  
 	}
-    Vector<double, Dynamic> y = x.array().sin() + noise_var * noise.array();
+    // f(x) = x^2 
+    // Vector<double, Dynamic> y = Eigen::pow(x.array(),2*VectorXd::Ones(x.rows()).array())  + noise_var * noise.array();
+    // f(x) = | x-1 |^2
+    Vector<double, Dynamic> y = Eigen::pow((x.array().abs() - 2*VectorXd::Ones(x.rows()).array()) , 2*VectorXd::Ones(x.rows()).array()) + noise_var * noise.array();
 
     return y;
 }
